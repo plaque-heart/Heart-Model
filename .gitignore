@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+#this file
+Thumbs.db
+
+#  extensions
+*.so
+*.
+*.log
+
+# Distribution / packaging
+Library/
+Temp/

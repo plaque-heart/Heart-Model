@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Cell : MonoBehaviour {
-	private float ax,ay,az =0;
-	private float vx,vy,vz = 0;
-	private float charge = 0;
+	float ax,ay,az =0;
+	float vx,vy,vz = 0;
+	float charge = 0;
+	List<Cell> cells = new List<Cell> ();
 
 	// Use this for initialization
 	void Start () {
 	
 	}
 
-	public void SetVelocity (float pvx,float pvy, float pvz) {
-		vx = pvx;
-		vy = pvy;
-		vz = pvz;
+	public void SetVelocity (float vx,float vy, float vz) {
+		this.vx = vx;
+		this.vy = vy;
+		this.vz = vz;
 		Rigidbody rb = GetComponent <Rigidbody> ();
 		rb.velocity = new Vector3(vx,vy,0);
 	}
@@ -33,14 +35,16 @@ public class Cell : MonoBehaviour {
 			render.material.color = Color.white; //SetColor("_SpecColor", Color.red);
 
 	}
-
+	public void SetCells (List <Cell> cells) {
+		this.cells = cells;
+	}
 	// Update is called once per frame
 	void Update () {
-		//particle.accel(particles);
+		//this.accel(particles);
 	}
 
 
 	void FixedUpdate () {
-		//particle.move ();
+		//this.move ();
 	}
 }
