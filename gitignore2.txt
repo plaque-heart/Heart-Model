@@ -1,4 +1,10 @@
-# new file
+#
+/*
+/*/*
+
+!.gitignore
+
+
 Library/
 [Ll]ibrary/
 /[Tt]emp/
