@@ -7,15 +7,20 @@ public class Controller : MonoBehaviour {
 
 	public float speed = 12f;
 	float mySpeed =0;
+	Camera cam;
 	// Use this for initialization
 	void Start () 
 	{
-		
+		cam = GetComponent<Camera> ();
+		cam.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if(Input.GetKeyDown(KeyCode.C))
+			cam.enabled = !cam.enabled;
+
 		if(Input.GetKeyDown(KeyCode.Space))
 			mySpeed += speed;
 		if (Input.GetKeyDown (KeyCode.Backspace) | Input.GetKeyDown (KeyCode.Delete))

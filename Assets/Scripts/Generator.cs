@@ -5,12 +5,14 @@ using System.IO;
 
 public class Generator : MonoBehaviour {
 	public Cell sampleCell;
+	public Cell platelet;
 	string filecells = "";
 	List<Cell> cells = new List<Cell> ();
 	float itsTime = 0;
 
 	void Load_Cells () {
-		Cell cell;
+		Cell cell,addCell;
+		int rand;
 
 		//Rigidbody rb = sampleCell.GetComponent<Rigidbody>();
 		List<float> mylist;
@@ -19,10 +21,18 @@ public class Generator : MonoBehaviour {
 			mylist = new List<float> ();
 			if (line.Trim() != "")  {
 				foreach (string u  in line.Split()) {
-					mylist.Add(float.Parse(u));
+					float floatu;
+					if(float.TryParse(u,out floatu))
+						mylist.Add(floatu);
 				}
 				//rb.velocity = new Vector3(mylist[2],mylist[3],0);
-				cell = Instantiate(sampleCell, new Vector3(mylist[0]-350,mylist[1],mylist[2]), Quaternion.identity) as Cell;
+				rand = Random.Range(0,100);
+				if(rand < 10)
+					addCell = platelet;
+				else
+					addCell = sampleCell;
+				cell = Instantiate(addCell, new Vector3(mylist[0]-350,mylist[1],mylist[2]), Quaternion.identity) as Cell;
+
 				cell.SetVelocity (mylist[3],mylist[4],mylist[5]);
 				//cell.SAC (mylist[5],mylist[6],0,mylist[4]);
 				cell.SC (mylist[6]);
@@ -39,6 +49,7 @@ public class Generator : MonoBehaviour {
 	}
 	// Use this for initialization
 	IEnumerator Start () {
+
 		string fileName = "info-particles3.txt";
 		try{
 			StreamReader theFile = new StreamReader(fileName);
@@ -55,7 +66,7 @@ public class Generator : MonoBehaviour {
 			yield return www;
 			filecells = www.text;
 		}
-		Load_Cells();
+		//Load_Cells();
 	}
 	
 	// Update is called once per frame
