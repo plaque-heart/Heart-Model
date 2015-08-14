@@ -11,6 +11,7 @@ public class Generator : MonoBehaviour {
 	string filecells = "";
 	List<Cell> cells = new List<Cell> ();
 	float itsTime = 0;
+	public int pladlets,whiteCells;
 
 	void Load_Cells () {
 		Cell cell,addCell;
@@ -29,9 +30,9 @@ public class Generator : MonoBehaviour {
 				}
 				//rb.velocity = new Vector3(mylist[2],mylist[3],0);
 				rand = Random.Range(0,100);
-				if(rand < 2)
+				if(rand < whiteCells)
 					addCell = WhiteCell;
-				else if(rand < 12)
+				else if(rand < (whiteCells + pladlets))
 					addCell = platelet;
 				else
 					addCell = sampleCell;

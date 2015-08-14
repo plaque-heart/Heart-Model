@@ -10,6 +10,7 @@ public class EndWall : MonoBehaviour {
 	private int count =0;
 	public GameObject uicount,uiCellTime,uitime,uimean,uisd;
 	public int sampleStart, sampleCount, displayTime;
+	private int thisCount;
 	int samples;
 	bool die = false;
 	float time0,endTime=0;
@@ -35,6 +36,8 @@ public class EndWall : MonoBehaviour {
 		data = new List<float>();
 		die = false;
 		endTime = 0;
+		time = 0;
+		thisCount = 0;
 	}
 	float RunTime(){
 		return Time.time - time0;
@@ -49,16 +52,17 @@ public class EndWall : MonoBehaviour {
 				die = true;
 			}
 			if ((Time.time - endTime) > (float)(displayTime+3)){
-				print ("wake");
+				//print ("wake");
 				Reset();
 			}
 		}
 	}
 	void OnTriggerEnter (Collider col) {
 		Cell cell = (Cell)col.gameObject.GetComponent<Cell>();
-		float cellTime = RunTime()-cell.startTime;
+		float cellTime = Time.time-cell.startTime;
 		time += cellTime;
 		count += 1;
+		thisCount += 1;
 		if ((RunTime() > sampleStart) & (samples < sampleCount)) {
 			samples += 1;
 			data.Add(cellTime);
@@ -73,7 +77,7 @@ public class EndWall : MonoBehaviour {
 			}
 		}
 		Destroy(col.gameObject);
-		timeText.text = "Av. cell time: " + (time / count).ToString ();
+		timeText.text = "Av. cell time: " + (time / thisCount).ToString ();
 		countText.text = "Count: " + count.ToString ();
 	}
 }
