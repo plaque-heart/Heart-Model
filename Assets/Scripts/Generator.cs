@@ -6,6 +6,8 @@ using System.IO;
 public class Generator : MonoBehaviour {
 	public Cell sampleCell;
 	public Cell platelet;
+	public Cell WhiteCell;
+	public EndWall endWall;
 	string filecells = "";
 	List<Cell> cells = new List<Cell> ();
 	float itsTime = 0;
@@ -21,17 +23,20 @@ public class Generator : MonoBehaviour {
 			mylist = new List<float> ();
 			if (line.Trim() != "")  {
 				foreach (string u  in line.Split()) {
-					float floatu;
+					float floatu;;
 					if(float.TryParse(u,out floatu))
 						mylist.Add(floatu);
 				}
 				//rb.velocity = new Vector3(mylist[2],mylist[3],0);
 				rand = Random.Range(0,100);
-				if(rand < 10)
+				if(rand < 2)
+					addCell = WhiteCell;
+				else if(rand < 12)
 					addCell = platelet;
 				else
 					addCell = sampleCell;
 				cell = Instantiate(addCell, new Vector3(mylist[0]-350,mylist[1],mylist[2]), Quaternion.identity) as Cell;
+				cell.SetEnd(endWall);
 
 				cell.SetVelocity (mylist[3],mylist[4],mylist[5]);
 				//cell.SAC (mylist[5],mylist[6],0,mylist[4]);
@@ -47,7 +52,7 @@ public class Generator : MonoBehaviour {
 		}
 		//return particles;
 	}
-	// Use this for initialization
+	//   -Use this for initialization
 	IEnumerator Start () {
 
 		string fileName = "info-particles3.txt";
@@ -72,7 +77,7 @@ public class Generator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		itsTime += Time.deltaTime;
-		if (itsTime > 1) {
+		if ((itsTime > 1) & (!endWall.stop())){
 			itsTime =0;
 			Load_Cells();
 		}

@@ -26,7 +26,7 @@ public class Controller : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Backspace) | Input.GetKeyDown (KeyCode.Delete))
 			mySpeed -= speed;
 		if (Input.GetKeyDown (KeyCode.Period) | Input.GetKeyDown (KeyCode.Greater)) {
-			print ("whatever");
+			//print ("whatever");
 			mySpeed = 0;
 		}
 		//		if (Input.GetAxis("Vertical") > 0)

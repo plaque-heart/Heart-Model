@@ -5,7 +5,7 @@ using System.IO;
 
 public class Cell : MonoBehaviour {
 	float ax,ay,az =0;
-
+	EndWall endWall;
 	float charge = 0;
 	List<Cell> cells;
 	bool firstTime = true;
@@ -21,10 +21,13 @@ public class Cell : MonoBehaviour {
 		tf = GetComponent <Transform> ().position;	
 	}
 
+	public void SetEnd(EndWall endWall) {
+		this.endWall = endWall;
+	}
 	public void SetVelocity (float vx,float vy, float vz) {
 	
 		rb = GetComponent <Rigidbody> ();
-		velocity = new Vector3 (vx, vy, vz);
+		velocity = new Vector3 (vx, vy, vz)/2;
 		rb.velocity = velocity;
 	}
 	public void SC (float q) {  //SAC: Set Charge
@@ -34,12 +37,12 @@ public class Cell : MonoBehaviour {
 		charge = q;
 		//print ("Render" + pq.ToString());
 		Renderer render = GetComponent <MeshRenderer> ();
-		if(charge == -1)
+		/*if(charge == -1)
 			render.material.color = Color.red; //SetColor("_SpecColor", Color.red);
 		else if(charge == 1)
 			render.material.color = Color.cyan; //SetColor("_SpecColor", Color.red);
 		else
-			render.material.color = Color.white; //SetColor("_SpecColor", Color.red);
+			render.material.color = Color.white; //SetColor("_SpecColor", Color.red);*/
 
 	}
 	public void SetCells (List <Cell> cells) {
@@ -70,7 +73,9 @@ public class Cell : MonoBehaviour {
 		if (firstTime) {
 			firstTime = false;
 		}
-			//Accel ();
+		if (endWall.stop ()) {
+			Destroy(this.gameObject);
+		}
 
 	}
 
