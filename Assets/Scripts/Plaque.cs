@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnAndOff : MonoBehaviour {
+public class Plaque : MonoBehaviour {
 
 	private Renderer rend;
 	private Collider coll;
+	private int typeofplaque;
 	// Use this for initialization
 	void Start () {
 		gameObject.SetActive(true);
@@ -13,14 +14,14 @@ public class OnAndOff : MonoBehaviour {
 		rend.enabled = false;
 		coll.enabled = false;
 	}
-	void plaque(bool enable){
+	public void OnAndOff(bool enable){
 		rend.enabled = enable;
 		coll.enabled = enable;
 	}
 	// Update is called once per frame
-	void Update () {
+	void NoUpdate () {
 		if(Input.GetKeyDown(KeyCode.P)){
-			plaque(!rend.enabled);
+			OnAndOff(!rend.enabled);
 			//print ("P down");
 		}
 		//else:

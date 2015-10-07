@@ -8,10 +8,14 @@ public class Generator : MonoBehaviour {
 	public Cell platelet;
 	public Cell WhiteCell;
 	public EndWall endWall;
+	public Plaque plaque1,plaque2,plaque3;
 	string filecells = "";
 	List<Cell> cells = new List<Cell> ();
+	List<Plaque> plaques = new List<Plaque> ();
+
 	float itsTime = 0;
 	public int pladlets,whiteCells;
+	int plaqueType = 0;
 
 	void Load_Cells () {
 		Cell cell,addCell;
@@ -56,6 +60,10 @@ public class Generator : MonoBehaviour {
 	//   -Use this for initialization
 	IEnumerator Start () {
 
+		plaques.Add (null);
+		plaques.Add (plaque1);
+		plaques.Add (plaque2);
+		plaques.Add (plaque3);
 		string fileName = "info-particles3.txt";
 		try{
 			StreamReader theFile = new StreamReader(fileName);
@@ -81,6 +89,18 @@ public class Generator : MonoBehaviour {
 		if ((itsTime > 1) & (!endWall.stop())){
 			itsTime =0;
 			Load_Cells();
+		}
+		if (Input.GetKeyDown (KeyCode.P)) {
+			//old plaque invisable
+			if (plaqueType != 0)
+				plaques [plaqueType].OnAndOff (false);
+			//number +=1
+			plaqueType += 1;
+			if (plaqueType > 3)
+				plaqueType = 0;
+			//new plaque visable
+			if (plaqueType != 0)
+				plaques [plaqueType].OnAndOff (true);
 		}
 
 	}
